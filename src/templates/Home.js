@@ -12,8 +12,8 @@ const Home = () => {
   const token = getTokenFromLocalStorage()
 
   const handlePostRequest = async () => {
+    const decoded = jwtDecode(token);
     try {
-      const decoded = jwtDecode(token);
       const response = await axios.post('http://localhost:3001/refresh', {
         email : decoded.email,
       });
@@ -37,8 +37,13 @@ const Home = () => {
 
   const deconnected = async () => {
     try {
+      const decoded = jwtDecode(token);
+      const response = await axios.post('http://localhost:3001/deactivate_token', {
+        userId : decoded.id,
+      });
+      console.log(response.data)
       localStorage.removeItem('accessToken');
-      navigate('/'); 
+      navigate('/');
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);

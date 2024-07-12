@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, List, ListItem, ListItemText } from '@mui/material';
 
-const Sidebar = ({ onMenuItemClick }) => (
+const SidebarCreate = ({ onMenuItemClick }) => (
   <Box sx={{ width: '200px', bgcolor: 'grey.300', height: '100vh', padding: 2 }}>
     <List component="nav">
       <ListItem button onClick={() => onMenuItemClick('invoice')}>
@@ -14,4 +14,4 @@ const Sidebar = ({ onMenuItemClick }) => (
   </Box>
 );
 
-export default Sidebar;
+export default SidebarCreate;
