@@ -10,9 +10,8 @@ function Facture() {
   };
 
   const [formData, setFormData] = useState({
-    user_email: '',
-    client_id: '',
-    date_echeance: '',
+    clientName: '',
+    dateEcheance: '',
     prixtotalTTC: '',
     remise: '',
     nom: "",
@@ -32,16 +31,23 @@ function Facture() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/add_facture', {
-        user_email: formData.user_email,
-        client_id: formData.client_id,
-        date_echeance: formData.date_echeance,
-        prixtotalTTC: formData.prixtotalTTC,
-        remise: formData.remise,
-        nom: formData.nom,
-      });
-      console.log(response.data);
-      navigate('/ajouter');
+      const token = getTokenFromLocalStorage();
+      if (token) {
+        const decoded = jwtDecode(token);
+        console.log(formData)
+        const response = await axios.post('http://localhost:3001/add_facture', {
+          clientName: formData.clientName,
+          dateEcheance: formData.dateEcheance,
+          prixtotalTTC: formData.prixtotalTTC,
+          remise: formData.remise,
+          nom: formData.nom,
+          userId:decoded.id
+        });
+        console.log(response.data);
+        navigate('/');
+      }else {
+        console.log("ERREUR PAS CONECTÉ")
+      }
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);
@@ -71,9 +77,9 @@ function Facture() {
       fetchClients(decoded.id);
     }
   }, []);
+  const [client, setClient] = useState('');
 
   const ClientSelect = ({ clients, handleChange }) => {
-    const [client, setClient] = useState('');
 
     const handleSelectChange = (event) => {
       setClient(event.target.value);
@@ -85,11 +91,11 @@ function Facture() {
         <InputLabel id="client-select-label">Client</InputLabel>
         <Select
           labelId="client-select-label"
-          id="client-select"
+          id="clientName"
           value={client}
           onChange={handleSelectChange}
-          label="Client"
-          name="client_id"
+          label="clientName"
+          name="clientName"
         >
           {clients.map((client) => (
             <MenuItem key={client.nom} value={client.nom}>
@@ -114,22 +120,12 @@ function Facture() {
             margin="normal"
             required
             fullWidth
-            id="user_email"
-            label="user_email"
-            name="user_email"
-            autoComplete="user_email"
-            autoFocus
-            onChange={handleChange}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="date_echeance"
-            label="date_echeance"
-            name="date_echeance"
-            autoComplete="date_echeance"
+            id="dateEcheance"
+            label="Date d'échéance"
+            name="dateEcheance"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            autoComplete="dateEcheance"
             autoFocus
             onChange={handleChange}
           />
@@ -139,8 +135,9 @@ function Facture() {
             required
             fullWidth
             id="prixtotalTTC"
-            label="prixtotalTTC"
+            label="Prix total TTC"
             name="prixtotalTTC"
+            type="number"
             autoComplete="prixtotalTTC"
             autoFocus
             onChange={handleChange}
@@ -151,10 +148,10 @@ function Facture() {
             required
             fullWidth
             name="remise"
-            label="remise"
-            type="remise"
+            label="Remise"
+            type="number"
             id="remise"
-            autoComplete="current-password"
+            autoComplete="remise"
             onChange={handleChange}
           />
           <TextField
