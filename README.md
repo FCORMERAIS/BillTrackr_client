@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# BillTrackr Application - README
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+BillTrackr est une application complète conçue pour gérer et suivre vos factures efficacement. Ce guide vous expliquera les étapes nécessaires pour configurer et exécuter l'application sur votre machine locale.
 
-## Available Scripts
+## Prérequis
+Avant de commencer, assurez-vous d'avoir les éléments suivants :
+- WAMP 
+- [Node.js](https://nodejs.org/en/download/)
+- [npm](https://www.npmjs.com/get-npm) (fourni avec Node.js)
 
-In the project directory, you can run:
+## Installation et Configuration
 
-### `npm start`
+### Étape 1 : Démarrer le serveur WAMP
+Assurez-vous que votre serveur WAMP est en cours d'exécution. Cela est crucial car BillTrackr nécessite un environnement de serveur local pour fonctionner.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Étape 2 : Cloner les dépôts
+Clonez les dépôt BillTrackr (FRONT et BACK) depuis GitHub vers votre machine locale.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+FRONT : 
 
-### `npm test`
+```sh
+git clone https://github.com/FCORMERAIS/BillTrackr_client.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+BACK : 
 
-### `npm run build`
+```sh
+git clone https://github.com/FCORMERAIS/BillTrackr_server.git
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Étape 3 : Installer les dépendances
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Naviguez dans le répertoire du projet et installez les dépendances nécessaires.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Ouvrez le premier terminal et naviguez dans le répertoire billTrackr_client :
 
-### `npm run eject`
+```sh
+cd BillTrackr_client
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Installez les packages requis :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```sh
+npm i
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Ouvrez le deuxième terminal et naviguez dans le répertoire billTrackr_server :
+```sh
+cd billTrackr_server
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Installez les packages requis :
 
-## Learn More
+```sh
+npm i
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Étape 4 : Exécuter l'application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Dans le premier terminal (à l'intérieur de billTrackr_client), démarrez l'application client :
 
-### Code Splitting
+```sh
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Dans le deuxième terminal (à l'intérieur de billTrackr_server), démarrez l'application serveur :
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```sh
+npm run dev
+```
 
-### Making a Progressive Web App
+## Utilisation
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Une fois que le client et le serveur sont en cours d'exécution, vous pouvez accéder à l'application BillTrackr en naviguant à http://localhost:3000 dans votre navigateur web.
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

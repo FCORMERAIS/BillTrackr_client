@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
-import { Button } from '@mui/material';
+import {jwtDecode} from 'jwt-decode'; // Corrigé l'import de jwtDecode
+import { Button, TextField, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Importer useNavigate
+import { useNavigate } from 'react-router-dom';
 
 function Profile() {
     const [prenom, setFirstName] = useState('');
@@ -13,7 +13,6 @@ function Profile() {
     const [user, setUser] = useState(null);
   
     useEffect(() => {
-      // Récupérer le jeton JWT du localStorage
       const getTokenFromLocalStorage = () => {
         return localStorage.getItem('accessToken');
       };
@@ -35,17 +34,16 @@ function Profile() {
       }
     }, []);
 
+    const navigate = useNavigate();
 
-    const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
-    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
           const response = await axios.post('http://localhost:3001/change_profile', {
-            prenom: prenom,
-            nom: nom,
-            adresse: adresse,
-            email : email,
+            prenom,
+            nom,
+            adresse,
+            email,
             token: tokenJWT,
           });
           console.log(response.data);
@@ -53,70 +51,81 @@ function Profile() {
           navigate('/'); 
         } catch (error) {
           if (error.response.data.message === "accessToken invalide") {
-            alert("accessTokenInvalide")
-          }
-          else if (error.response) {
+            alert("accessTokenInvalide");
+          } else if (error.response) {
             console.error(error.response.data);
-            
-            // Gérez les erreurs spécifiques à la réponse
           } else if (error.request) {
             console.error('No response received:', error.request);
-            // Gérez les erreurs où aucune réponse n'a été reçue
           } else {
             console.error('Error', error.message);
-            // Gérez d'autres erreurs (erreurs de configuration, etc.)
           }
         }
       };
-
 
     const handleFirstNameChange = (e) => setFirstName(e.target.value);
     const handleLastNameChange = (e) => setLastName(e.target.value);
     const handleAddressChange = (e) => setAddress(e.target.value);
   
   return (
-    <div className="profile">
-      {user ? (
-        <>
-        <form onSubmit={handleSubmit} noValidate autoComplete="off">
-          <div className="name-fields">
-
-                <p>pernom : </p><input
-                type="text"
-                placeholder="Prénom"
-                value={prenom}
-                onChange={handleFirstNameChange}
-                />
-                <p>nom : </p><input
-                type="text"
-                placeholder="Nom"
-                value={nom}
-                onChange={handleLastNameChange}
-                />
-            </div>
-            <p>adresse : </p>
-            <input
-                type="text"
-                placeholder="Adresse"
-                value={adresse}
-                onChange={handleAddressChange}
-                className="address-field"
+    <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          Profil
+        </Typography>
+        {user ? (
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="firstName"
+              label="Prénom"
+              name="firstName"
+              value={prenom}
+              onChange={handleFirstNameChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="lastName"
+              label="Nom"
+              name="lastName"
+              value={nom}
+              onChange={handleLastNameChange}
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="adresse"
+              label="Adresse"
+              name="adresse"
+              value={adresse}
+              onChange={handleAddressChange}
             />
             <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                sx={{ mt: 3, mb: 2 }}
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              sx={{ mt: 3, mb: 2 }}
             >
-                ENREGISTRER PROFILE
+              ENREGISTRER PROFIL
             </Button>
-            </form>
-        </>
-      ) : (
-        <p>Veuillez vous connecter.</p>
-      )}
-    </div>
+          </Box>
+        ) : (
+          <Typography variant="body1">Veuillez vous connecter.</Typography>
+        )}
+      </Box>
+    </Container>
   );
 }
 

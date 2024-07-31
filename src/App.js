@@ -6,6 +6,7 @@ import Login from './templates/Login';
 import Profile from './templates/Profile';
 import ListeFacture from "./templates/ListeFactures"
 import Ajouter from "./templates/Ajouter"
+import FactureHistory from "./templates/Historique"
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/profile" element={<Profile /> } />
         <Route path="/listeFactures" element={<ListeFacture/>} />
         <Route path="/ajouter" element={<Ajouter/>} />
+        <Route path="/historique" element={<FactureHistory/>} />
       </Routes>
     </Router>
   );
