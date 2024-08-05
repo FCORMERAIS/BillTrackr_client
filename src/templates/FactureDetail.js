@@ -1,10 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import axios from 'axios';
+import PDFViewer from './PDFViewer';
 
 const FactureDetail = ({ facture, onDelete }) => {
+  const [pdfUrl, setPdfUrl] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPdf = async () => {
+      try {
+        if (facture) {
+          const response = await axios.post('http://localhost:3001/get_pdf', { factureId: facture.id });
+          setPdfUrl(response.data.pdfUrl);
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération du PDF:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPdf();
+  }, [facture]);
+
   if (!facture) {
     return <Typography variant="h6">Sélectionnez une facture pour voir les détails.</Typography>;
+  }
+
+  if (loading) {
+    return <Typography variant="h6">Chargement des détails de la facture...</Typography>;
   }
 
   const handleDelete = async () => {
@@ -15,7 +40,6 @@ const FactureDetail = ({ facture, onDelete }) => {
       window.location.reload();
     } catch (error) {
       console.error('Erreur lors de la suppression de la facture:', error);
-      // Gérer les erreurs de suppression
     }
   };
 
@@ -26,7 +50,6 @@ const FactureDetail = ({ facture, onDelete }) => {
       window.location.reload();
     } catch (error) {
       console.error('Erreur lors de la validation du paiement:', error);
-      // Gérer les erreurs de validation de paiement
     }
   };
 
@@ -38,6 +61,12 @@ const FactureDetail = ({ facture, onDelete }) => {
       <Typography variant="body1"><strong>Prix Total TTC:</strong> {facture.prixTotalTTC}</Typography>
       <Typography variant="body1"><strong>Remise:</strong> {facture.remises}</Typography>
       <Typography variant="body1"><strong>Payé ? :</strong> {facture.haveBeenPaid ? 'Oui' : 'Non'}</Typography>
+      {pdfUrl && (
+        <Box mt={2}>
+          <Typography variant="body1"><strong>Aperçu du document :</strong></Typography>
+          <PDFViewer pdfUrl={pdfUrl} />
+        </Box>
+      )}
       <Button 
         variant="contained" 
         color="secondary" 

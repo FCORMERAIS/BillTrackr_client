@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Button, Typography, Container, Box } from '@mui/material';
-import {jwtDecode} from 'jwt-decode'; // Corrigé l'import de jwtDecode
+import {jwtDecode} from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
@@ -10,6 +10,12 @@ const Home = () => {
   };
 
   const token = getTokenFromLocalStorage();
+  let firstName = '';
+
+  if (token) {
+    const decoded = jwtDecode(token);
+    firstName = decoded.firstName; // Assurez-vous que le prénom est stocké sous cette clé dans votre token
+  }
 
   const handlePostRequest = async () => {
     const decoded = jwtDecode(token);
@@ -75,40 +81,13 @@ const Home = () => {
         }}
       >
         <Typography component="h1" variant="h3" gutterBottom>
-          Bienvenue sur BillTrackr
+          {isLoggedIn ? `Bonjour ${firstName}` : 'Bienvenue sur BillTrackr'}
         </Typography>
         <Typography variant="body1" align="center" gutterBottom>
-          Cette application vous aide à gérer vos factures efficacement.
+          {isLoggedIn
+            ? 'Cette application vous aide à gérer vos factures efficacement.'
+            : 'Veuillez vous connecter pour pouvoir accéder au site.'}
         </Typography>
-        {isLoggedIn ? (
-          <>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handlePostRequest}
-              sx={{ mt: 2 }}
-            >
-              Vérifier le token
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={deconnected}
-              sx={{ mt: 2 }}
-            >
-              SE DECONNECTER
-            </Button>
-          </>
-        ) : (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleLoginRedirect}
-            sx={{ mt: 2 }}
-          >
-            SE CONNECTER
-          </Button>
-        )}
       </Box>
     </Container>
   );

@@ -9,6 +9,21 @@ function Facture() {
     return localStorage.getItem('accessToken');
   };
 
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileUrl, setFileUrl] = useState('');
+  const [nameFile, setnameFile] = useState('')
+
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setFileUrl(URL.createObjectURL(file));
+      handleChange({ target: { name: 'nom', value: file.name } });
+    }
+  };
+
+
   const [formData, setFormData] = useState({
     clientName: '',
     dateEcheance: '',
@@ -33,6 +48,27 @@ function Facture() {
     try {
       const token = getTokenFromLocalStorage();
       if (token) {
+
+        if (!selectedFile) {
+          alert('Aucun fichier sélectionné');
+          return;
+        }
+    
+        const formDataFile = new FormData();
+        formDataFile.append('file', selectedFile);
+    
+        try {
+          const response = await axios.post('http://localhost:3001/upload', formDataFile, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          });
+          setnameFile(response.data.file.filename)
+          console.log(nameFile)
+        } catch (error) {
+          console.error('Erreur lors du téléchargement du fichier', error);
+          alert('Erreur lors du téléchargement du fichier');
+        }
         const decoded = jwtDecode(token);
         console.log(formData)
         const response = await axios.post('http://localhost:3001/add_facture', {
@@ -41,7 +77,8 @@ function Facture() {
           prixtotalTTC: formData.prixtotalTTC,
           remise: formData.remise,
           nom: formData.nom,
-          userId:decoded.id
+          userId:decoded.id,
+          path: nameFile,
         });
         console.log(response.data);
         navigate('/');
@@ -166,6 +203,32 @@ function Facture() {
             autoComplete="current-password"
             onChange={handleChange}
           />
+          <Box display="flex" alignItems="center" mt={2}>
+            <input
+              accept=".pdf,.doc,.docx,.xlsx,.csv"
+              id="upload-file"
+              type="file"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
+            <label htmlFor="upload-file">
+              <Button variant="contained" component="span">
+                Choisir un fichier
+              </Button>
+            </label>
+          </Box>
+          {fileUrl && (
+            <Box mt={2} width="100%" textAlign="center">
+              <Typography variant="body1">Aperçu du fichier :</Typography>
+              {selectedFile.type.startsWith('image/') ? (
+                <img src={fileUrl} alt="Aperçu du fichier" style={{ maxWidth: '100%' }} />
+              ) : (
+                <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+                  {selectedFile.name}
+                </a>
+              )}
+            </Box>
+          )}
           <Button
             type="submit"
             fullWidth
