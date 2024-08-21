@@ -1,36 +1,44 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600;700&display=swap");
-
-* {
- box-sizing: border-box;
- padding: 0;
- margin: 0;
-}
-
 :root {
- --header-height: 3.5rem;
- --first-color: hsl(28, 88%, 62%);
- --title-color: hsl(0, 0%, 95%);
- --text-color: hsl(0, 0%, 75%);
- --body-color: hsl(0, 0%, 6%);
- --body-font: "Montserrat", sans-serif;
- --second-font: "Dancing Script", cursive;
- --h2-font-size: 1.25rem;
- --small-font-size: 0.813rem;
- --font-semi-bold: 600;
- --z-tooltip: 10;
- --z-fixed: 100;
+  --primary-blue: #2563EB;
+  --primary-violet: #8B5CF6;
+  --primary-white: #FFFFFF;
+  --secondary-gray-light: #F9FAFB;
+  --secondary-black: #111827;
+
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Nunito', sans-serif;
 }
 
 body {
- background-color: var(--body-color);
- color: var(--text-color);
- font-family: var(--body-font);
+  font-family: var(--font-primary);
+  background-color: var(--secondary-gray-light);
+  color: var(--secondary-black);
+  margin: 0;
+  padding: 0;
 }
 
-ul {
- list-style: none;
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-secondary);
 }
 
-a {
- text-decoration: none;
+button {
+  background-color: var(--primary-violet);
+  color: var(--primary-white);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: var(--font-primary);
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--primary-blue);
+}
+
+.card {
+  background-color: var(--primary-white);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
 }

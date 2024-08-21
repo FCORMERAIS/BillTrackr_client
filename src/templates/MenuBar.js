@@ -4,7 +4,7 @@ import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
 import { Button} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import "../css/MenuBar.css"
 
 const NavbarComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,7 +47,7 @@ const NavbarComponent = () => {
       });
       console.log(response.data);
       localStorage.removeItem('accessToken');
-      navigate('/');
+      navigate('/acceuil');
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);
@@ -63,7 +63,7 @@ const NavbarComponent = () => {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/login');
+    navigate('/connection');
   };
 
   const isLoggedIn = !!token;
@@ -83,20 +83,23 @@ const NavbarComponent = () => {
 
   return (
     <Navbar bg="dark" variant="dark" expand="lg" className="navbar-custom">
-      <Navbar.Brand href="/" className="navbar-logo">Logo</Navbar.Brand>
+      <Navbar.Brand href="/acceuil" className="navbar-logo" id="navbar-logo">
+        BillTrackr
+      </Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
-
         {isLoggedIn ? (
-            <>
+          <>
             <Nav className="mx-auto">
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/ajouter">Ajouter</Nav.Link>
-            <Nav.Link href="/listeFactures">Liste des Factures</Nav.Link>
-            <Nav.Link href="/historique">Historique</Nav.Link>
+              <Nav.Link href="/profile">Profile</Nav.Link>
+              <Nav.Link href="/ajouter">Ajouter</Nav.Link>
+              <Nav.Link href="/listeFactures">Liste des Factures</Nav.Link>
+              <Nav.Link href="/historique">Historique</Nav.Link>
             </Nav>
             <Button
+              className="bouton_co"
               variant="contained"
+              id="bouton_co"
               color="secondary"
               onClick={deconnected}
               sx={{ mt: 2 }}
@@ -106,14 +109,16 @@ const NavbarComponent = () => {
           </>
         ) : (
           <Nav className="mx-auto">
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={handleLoginRedirect}
-            sx={{ mt: 2 }}
-          >
-            SE CONNECTER
-          </Button>
+            <Button
+              className="bouton_co"
+              id="bouton_co"
+              variant="contained"
+              color="primary"
+              onClick={handleLoginRedirect}
+              sx={{ mt: 2 }}
+            >
+              SE CONNECTER
+            </Button>
           </Nav>
         )}
       </Navbar.Collapse>

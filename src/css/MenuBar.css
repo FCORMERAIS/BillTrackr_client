@@ -64,3 +64,35 @@
    .show-menu {
     right: 0;
    }
+
+
+  .navbar-brand {
+    display: inline-block;
+    width: auto;
+    padding: 0;
+  }
+  
+  .navbar-logo-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: 1000px) {
+    .navbar-nav {
+      flex-direction: column;
+      align-items: center; 
+    }
+  
+    .navbar-nav .nav-link {
+      margin: 0.5rem 0; 
+    }
+  
+    #bouton_co {
+      position: static;
+      margin-left: 31%;
+    }
+    #navbar-logo {
+      position: static;
+      margin-left: 40%;
+    }
+  }

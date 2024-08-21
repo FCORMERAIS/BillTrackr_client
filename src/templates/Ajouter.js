@@ -1,31 +1,57 @@
 import React, { useState } from 'react';
-import { Box, Container } from '@mui/material';
-import Sidebar from './SidebarCreate';
+import { Box, Typography, Container } from '@mui/material';
 import  Client  from "./Client";
 import  Facture  from "./Facture";
 
+
 const Ajouter = () => {
-    const [currentPage, setCurrentPage] = useState('tax');
-  
-    const renderContent = () => {
-      switch (currentPage) {
-        case 'facture':
-          return <Facture />;
-        case 'client':
-          return <Client />;
-        default:
-          return <Facture />;
-      }
-    };
-  
-    return (
-      <Box sx={{ display: 'flex' }}>
-        <Sidebar onMenuItemClick={setCurrentPage} />
-        <Container sx={{ padding: 3 }}>
-          {renderContent()}
-        </Container>
-      </Box>
-    );
+  const [currentPage, setCurrentPage] = useState('facture');
+
+  const renderContent = () => {
+    switch (currentPage) {
+      case 'facture':
+        return <Facture />;
+      case 'client':
+        return <Client />;
+      default:
+        return <Facture />;
+    }
   };
 
-export default Ajouter;  
+  return (
+    <Box>
+      {/* Menu Horizontal */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', borderBottom: '1px solid #ccc', mb: 2 }}>
+        <Typography
+          variant="h6"
+          onClick={() => setCurrentPage('facture')}
+          sx={{
+            cursor: 'pointer',
+            padding: '10px 20px',
+            borderBottom: currentPage === 'facture' ? '3px solid #1976d2' : 'none',
+          }}
+        >
+          Facture
+        </Typography>
+        <Typography
+          variant="h6"
+          onClick={() => setCurrentPage('client')}
+          sx={{
+            cursor: 'pointer',
+            padding: '10px 20px',
+            borderBottom: currentPage === 'client' ? '3px solid #1976d2' : 'none',
+          }}
+        >
+          Client
+        </Typography>
+      </Box>
+
+      {/* Contenu Dynamique */}
+      <Container sx={{ padding: 3 }}>
+        {renderContent()}
+      </Container>
+    </Box>
+  );
+};
+
+export default Ajouter;

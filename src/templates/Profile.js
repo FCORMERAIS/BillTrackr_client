@@ -48,7 +48,7 @@ function Profile() {
           });
           console.log(response.data);
           localStorage.setItem('accessToken', response.data.accessToken);
-          navigate('/'); 
+          navigate('/acceuil'); 
         } catch (error) {
           if (error.response.data.message === "accessToken invalide") {
             alert("accessTokenInvalide");

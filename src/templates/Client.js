@@ -33,7 +33,7 @@ function Client() {
         userId : decoded.id
       });      
       console.log(response.data)
-      navigate('/'); 
+      navigate('/acceuil'); 
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);

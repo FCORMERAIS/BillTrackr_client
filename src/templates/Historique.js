@@ -40,7 +40,7 @@ const FactureHistory = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ padding: 2 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography variant="h4" component="h1"  alignItems='center' gutterBottom>
           Historique des Factures
         </Typography>
         <List>

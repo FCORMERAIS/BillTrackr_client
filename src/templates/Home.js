@@ -49,7 +49,7 @@ const Home = () => {
       });
       console.log(response.data);
       localStorage.removeItem('accessToken');
-      navigate('/');
+      navigate('/acceuil');
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);
@@ -65,7 +65,7 @@ const Home = () => {
   };
 
   const handleLoginRedirect = () => {
-    navigate('/login');
+    navigate('/acceuil');
   };
 
   const isLoggedIn = !!token;

@@ -28,7 +28,7 @@ function Register() {
         confirmPassword: formData.confirmPassword
       });
       console.log(response.data);
-      navigate('/login'); 
+      navigate('/connection'); 
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);
@@ -100,7 +100,7 @@ function Register() {
           </Button>
         </form>
         <Typography variant="body2">
-          Déjà un compte ? <a href="/login">Clique ici</a>
+          Déjà un compte ? <a href="/connection">Clique ici</a>
         </Typography>
       </Box>
     </Container>

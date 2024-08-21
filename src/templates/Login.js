@@ -29,7 +29,7 @@ function Login() {
 
       localStorage.setItem('accessToken', response.data.accessToken);
       
-      navigate('/'); 
+      navigate('/acceuil'); 
     } catch (error) {
       if (error.response) {
         console.error(error.response.data);
@@ -88,7 +88,7 @@ function Login() {
           </Button>
         </form>
         <Typography variant="body2">
-          Se créer un compte ? <a href="/register">Clique ici</a>
+          Se créer un compte ? <a href="/creer">Clique ici</a>
         </Typography>
       </Box>
     </Container>

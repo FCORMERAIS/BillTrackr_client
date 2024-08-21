@@ -9,6 +9,7 @@ import ListeFacture from "./templates/ListeFactures"
 import Ajouter from "./templates/Ajouter"
 import FactureHistory from "./templates/Historique"
 import MenuBar from "./templates/MenuBar"
+import PageError from "./templates/404Page"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -17,9 +18,10 @@ const App = () => {
       <MenuBar />
       <main className="main-content">
       <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />  
+          <Route path="/*" element={<PageError/>} />
+          <Route path="/acceuil" element={<Home />} />
+          <Route path="/creer" element={<Register />} />
+          <Route path="/connection" element={<Login />} />  
           <Route path="/profile" element={<Profile /> } />
           <Route path="/listeFactures" element={<ListeFacture/>} />
           <Route path="/ajouter" element={<Ajouter/>} />

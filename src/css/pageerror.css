@@ -1,0 +1,48 @@
+.error-404 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+    color: #343a40;
+    text-align: center;
+  }
+  
+  .error-container {
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .error-404 h1 {
+    font-size: 6rem;
+    margin-bottom: 0;
+  }
+  
+  .error-404 h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .error-404 p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+  
+  .home-link {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .home-link:hover {
+    background-color: #0056b3;
+  }
+  
