@@ -89,10 +89,23 @@
   
     #bouton_co {
       position: static;
-      margin-left: 31%;
+      
     }
     #navbar-logo {
       position: static;
       margin-left: 40%;
     }
+    .navbar-logo {
+      margin-left : 0%;
+    }
+    .bouton_co {
+      margin-right : 0%;
+    }
   }
+
+.navbar-logo {
+  margin-left : 3%;
+}
+#bouton_co {
+  margin-right : 3%;
+}

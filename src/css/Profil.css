@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&display=swap');
+
+* {
+  font-family: 'Archivo Black', sans-serif;
+}
+
+.boxProfile {
+    padding: 8%;
+    border-radius: 20px;
+    background-color: linen;
+}
+
+#firstName {
+    fontFamily : "Archivo Black"
+  }

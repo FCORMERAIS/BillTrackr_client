@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import "../css/login.css"
 
 function Login() {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   });
-  const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
+  const [error, setError] = useState(''); // État pour stocker le message d'erreur
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,6 +22,7 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Réinitialise le message d'erreur avant de soumettre
     try {
       const response = await axios.post('http://localhost:3001/login', {
         email: formData.email,
@@ -28,27 +30,23 @@ function Login() {
       });
 
       localStorage.setItem('accessToken', response.data.accessToken);
-      
-      navigate('/acceuil'); 
+      navigate('/acceuil');
     } catch (error) {
       if (error.response) {
-        console.error(error.response.data);
-        // Gérez les erreurs spécifiques à la réponse
+        setError('L\'email ou le mot de passe n\'est pas bon');
       } else if (error.request) {
-        console.error('No response received:', error.request);
-        // Gérez les erreurs où aucune réponse n'a été reçue
+        setError('Aucune réponse du serveur. Veuillez réessayer plus tard.');
       } else {
-        console.error('Error', error.message);
-        // Gérez d'autres erreurs (erreurs de configuration, etc.)
+        setError('Une erreur est survenue. Veuillez réessayer.');
       }
     }
   };
 
   return (
     <Container maxWidth="sm">
-      <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
+      <Box display="flex" flexDirection="column" alignItems="center" mt={5} className="boxLogin">
         <Typography variant="h4" component="h1" gutterBottom>
-          BillTrackr (logo)
+          <img src="./image.png" alt="Logo" />
         </Typography>
         <form onSubmit={handleSubmit} noValidate autoComplete="off">
           <TextField
@@ -60,6 +58,8 @@ function Login() {
             label="Adresse email"
             name="email"
             autoComplete="email"
+            InputLabelProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
+            inputProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
             autoFocus
             value={formData.email}
             onChange={handleChange}
@@ -70,24 +70,31 @@ function Login() {
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Mot de passe"
             type="password"
             id="password"
             autoComplete="current-password"
+            InputLabelProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
+            inputProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
             value={formData.password}
             onChange={handleChange}
           />
+          {error && (
+            <Alert severity="error" sx={{ mt: 2, fontFamily: 'Archivo Black, sans-serif' }}>
+              {error}
+            </Alert>
+          )}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}
           >
             Se connecter
           </Button>
         </form>
-        <Typography variant="body2">
+        <Typography variant="body2" sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}>
           Se créer un compte ? <a href="/creer">Clique ici</a>
         </Typography>
       </Box>

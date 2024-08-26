@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Button, Typography, Container, Box } from '@mui/material';
 import {jwtDecode} from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
+import Carousel from './Carousel'
+import "../css/home.css"
 
 const Home = () => {
   const getTokenFromLocalStorage = () => {
@@ -14,7 +16,7 @@ const Home = () => {
 
   if (token) {
     const decoded = jwtDecode(token);
-    firstName = decoded.firstName; // Assurez-vous que le prénom est stocké sous cette clé dans votre token
+    firstName = decoded.firstName;
   }
 
   const handlePostRequest = async () => {
@@ -71,7 +73,7 @@ const Home = () => {
   const isLoggedIn = !!token;
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container>
       <Box
         sx={{
           marginTop: 8,
@@ -80,15 +82,23 @@ const Home = () => {
           alignItems: 'center',
         }}
       >
-        <Typography component="h1" variant="h3" gutterBottom>
+        <Typography component="h1" variant="h3" className='textHome' gutterBottom sx={{fontFamily: 'Archivo Black, sans-serif'}}>
           {isLoggedIn ? `Bonjour ${firstName}` : 'Bienvenue sur BillTrackr'}
         </Typography>
-        <Typography variant="body1" align="center" gutterBottom>
+        <Typography variant="body1" align="center" gutterBottom sx={{fontFamily: 'Archivo Black, sans-serif'}}>
           {isLoggedIn
             ? 'Cette application vous aide à gérer vos factures efficacement.'
             : 'Veuillez vous connecter pour pouvoir accéder au site.'}
         </Typography>
+
       </Box>
+      <div className='caroussel'>
+        <h2>
+          Fonctionnalités future :
+        </h2>
+          <Carousel/>
+      </div>
+
     </Container>
   );
 };

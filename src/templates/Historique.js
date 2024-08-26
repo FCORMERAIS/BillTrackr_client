@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Box, Typography, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
 import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
+import "../css/Historique.css"
+import '@fontsource/archivo-black';
+
 
 const FactureHistory = () => {
   const [factures, setFactures] = useState([]);
@@ -34,13 +37,13 @@ const FactureHistory = () => {
   }
 
   if (error) {
-    return <Typography variant="h6">{error}</Typography>; // Display the error message
+    return <Typography variant="h6">{error}</Typography>;
   }
 
   return (
     <Container maxWidth="md">
       <Box sx={{ padding: 2 }}>
-        <Typography variant="h4" component="h1"  alignItems='center' gutterBottom>
+        <Typography className = "historiqueText" variant="h4" component="h1"  alignItems='center' gutterBottom sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
           Historique des Factures
         </Typography>
         <List>

@@ -5,6 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@fontsource/archivo-black": "^5.0.21",
     "@mui/icons-material": "^5.16.1",
     "@mui/material": "^5.16.0",
     "@popperjs/core": "^2.11.8",
@@ -25,6 +26,9 @@
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.2",
+    "sass": "^1.77.8",
+    "slick-carousel": "^1.8.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

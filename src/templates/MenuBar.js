@@ -102,7 +102,7 @@ const NavbarComponent = () => {
               id="bouton_co"
               color="secondary"
               onClick={deconnected}
-              sx={{ mt: 2 }}
+              sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}
             >
               SE DECONNECTER
             </Button>

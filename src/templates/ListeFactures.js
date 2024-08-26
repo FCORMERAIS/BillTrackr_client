@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Button, Grid, Dialog, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
+import { Close } from '@mui/icons-material'; // Import de l'icône Close
 import axios from 'axios';
 import PDFViewer from './PDFViewer';
 import { jwtDecode } from 'jwt-decode';
+import '@fontsource/archivo-black';
+import "../css/ListeFacture.css";
 
 const FactureDetail = () => {
   const [clients, setClients] = useState([]);
@@ -97,74 +100,89 @@ const FactureDetail = () => {
       {!selectedFacture ? (
         <>
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80h' }}>
-          <Button variant="contained" color="primary" onClick={() => setOpenClientDialog(true)}>
-            Choisir une facture
-          </Button>
+            <Button variant="contained" color="primary" onClick={() => setOpenClientDialog(true)} sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
+              Choisir une facture
+            </Button>
 
-          <Dialog open={openClientDialog} onClose={() => setOpenClientDialog(false)}>
-            <List>
-              {clients.length === 0 ? (
-                <ListItem>
-                  <CircularProgress size={24} />
-                </ListItem>
-              ) : (
-                clients.map((client) => (
-                  <ListItem button key={client.id} onClick={() => handleClientClick(client.id)}>
-                    <ListItemText primary={client.nom} />
+            <Dialog open={openClientDialog} onClose={() => setOpenClientDialog(false)} sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
+              <List>
+                {clients.length === 0 ? (
+                  <ListItem>
+                    <CircularProgress size={24} />
                   </ListItem>
-                ))
-              )}
-            </List>
-          </Dialog>
+                ) : (
+                  clients.map((client) => (
+                    <ListItem button key={client.id} onClick={() => handleClientClick(client.id)} sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
+                      <ListItemText primary={client.nom} />
+                    </ListItem>
+                  ))
+                )}
+              </List>
+            </Dialog>
 
-          <Dialog open={openFactureDialog} onClose={() => setOpenFactureDialog(false)}>
-            <List>
-              {factures.length === 0 ? (
-                <ListItem>
-                  <CircularProgress size={24} />
-                </ListItem>
-              ) : (
-                factures.map((facture) => (
-                  <ListItem button key={facture.id} onClick={() => handleSelectFacture(facture)}>
-                    <ListItemText primary={`Facture ${facture.id} - ${facture.nom}`} />
+            <Dialog open={openFactureDialog} onClose={() => setOpenFactureDialog(false)}>
+              <List>
+                {factures.length === 0 ? (
+                  <ListItem>
+                    <CircularProgress size={24} />
                   </ListItem>
-                ))
-              )}
-            </List>
-          </Dialog>
+                ) : (
+                  factures.map((facture) => (
+                    <ListItem button key={facture.id} onClick={() => handleSelectFacture(facture)}>
+                      <ListItemText primary={`Facture ${facture.id} - ${facture.nom}`} />
+                    </ListItem>
+                  ))
+                )}
+              </List>
+            </Dialog>
           </Box>
-
         </>
       ) : (
         <Box sx={{ overflow: 'auto', maxHeight: '100vh' }}>
-          <Typography variant="h4" align="center" sx={{ mb: 2 }}>
-            {selectedFacture.nom} - Facture {selectedFacture.id}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center' }} className = "titleBox">
+            <Typography variant="h4" align="center" sx={{ mb: 2, fontFamily: 'Archivo Black, sans-serif' }}>
+              {selectedFacture.nom} - Facture {selectedFacture.id}
+            </Typography>
+          </Box>
+          <Box className = "closeBox">
+          <Close
+              onClick={() => setSelectedFacture(null)}
+              sx={{ cursor: 'pointer', color: '#f00' }}
+          />
+          </Box>
           <Grid container spacing={2}>
             <Grid item xs={12} md={8}>
               {loading ? (
-                <Typography variant="h6">Chargement des détails de la facture...</Typography>
+                <Typography variant="h6" sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
+                  Chargement des détails de la facture...
+                </Typography>
               ) : (
                 pdfUrl && (
-                  <Box sx={{ border: '1px solid #ddd' }}>
+                  <Box sx={{ border: '1px solid #ddd' }} className="boxInfo">
                     <PDFViewer pdfUrl={pdfUrl} />
                   </Box>
                 )
               )}
             </Grid>
             <Grid item xs={12} md={4}>
-              <Box sx={{ border: '1px solid #ddd', padding: 2 }}>
-                <Typography variant="body1"><strong>Date d'échéance:</strong> {selectedFacture.dateEcheance}</Typography>
-                <Typography variant="body1"><strong>Prix Total TTC:</strong> {selectedFacture.prixTotalTTC}</Typography>
-                <Typography variant="body1"><strong>Remise:</strong> {selectedFacture.remises}</Typography>
-                <Typography variant="body1" align="center">
+              <Box sx={{ border: '1px solid #ddd', padding: 2 }} className="boxInfo">
+                <Typography variant="body1">
+                  <strong>Date d'échéance:</strong> {selectedFacture.dateEcheance}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Prix Total TTC:</strong> {selectedFacture.prixTotalTTC}
+                </Typography>
+                <Typography variant="body1">
+                  <strong>Remise:</strong> {selectedFacture.remises}
+                </Typography>
+                <Typography variant="body1" align="center" sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
                   ({selectedFacture.haveBeenPaid ? 'PAYÉ' : 'PAS PAYÉ'})
                 </Typography>
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={handleDelete}
-                  sx={{ mt: 2, width: '100%' }}
+                  sx={{ mt: 2, width: '100%', fontFamily: 'Archivo Black, sans-serif' }}
                 >
                   Supprimer la Facture
                 </Button>
@@ -172,7 +190,7 @@ const FactureDetail = () => {
                   variant="contained"
                   color="primary"
                   onClick={handlePaymentValidation}
-                  sx={{ mt: 2, width: '100%' }}
+                  sx={{ mt: 2, width: '100%', fontFamily: 'Archivo Black, sans-serif' }}
                 >
                   Valider le Paiement
                 </Button>

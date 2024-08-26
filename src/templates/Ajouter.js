@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import  Client  from "./Client";
 import  Facture  from "./Facture";
-
+import '@fontsource/archivo-black';
 
 const Ajouter = () => {
   const [currentPage, setCurrentPage] = useState('facture');
@@ -20,8 +20,7 @@ const Ajouter = () => {
 
   return (
     <Box>
-      {/* Menu Horizontal */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', borderBottom: '1px solid #ccc', mb: 2 }}>
+       <Box sx={{ display: 'flex', justifyContent: 'center', borderBottom: '1px solid #ccc', mb: 2 }}>
         <Typography
           variant="h6"
           onClick={() => setCurrentPage('facture')}
@@ -29,6 +28,7 @@ const Ajouter = () => {
             cursor: 'pointer',
             padding: '10px 20px',
             borderBottom: currentPage === 'facture' ? '3px solid #1976d2' : 'none',
+            fontFamily: 'Archivo Black, sans-serif'
           }}
         >
           Facture
@@ -40,6 +40,7 @@ const Ajouter = () => {
             cursor: 'pointer',
             padding: '10px 20px',
             borderBottom: currentPage === 'client' ? '3px solid #1976d2' : 'none',
+            fontFamily: 'Archivo Black, sans-serif'
           }}
         >
           Client

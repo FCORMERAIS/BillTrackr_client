@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import "./css/index.css"
+import "./css/index.scss"
 import Home from './templates/Home';
 import Register from './templates/Register';
 import Login from './templates/Login';
@@ -12,10 +12,21 @@ import MenuBar from "./templates/MenuBar"
 import PageError from "./templates/404Page"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+
 const App = () => {
   return (
     <Router>
-      <MenuBar />
+      <div className="gradient-bg">
+      <div className="gradients-container">
+        <div className="g1"></div>
+        <div className="g2"></div>
+        <div className="g3"></div>
+        <div className="g4"></div>
+        <div className="g5"></div>
+        <div className="interactive"></div>
+        </div>
+        </div>
+        <MenuBar />
       <main className="main-content">
       <Routes>
           <Route path="/*" element={<PageError/>} />

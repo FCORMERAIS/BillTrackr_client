@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
+import '@fontsource/archivo-black';
+import "../css/register.css"
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -45,9 +47,9 @@ function Register() {
 
   return (
     <Container maxWidth="sm">
-      <Box display="flex" flexDirection="column" alignItems="center" mt={5}>
+      <Box display="flex" flexDirection="column" alignItems="center" mt={5} className="boxRegister">
         <Typography variant="h4" component="h1" gutterBottom>
-          BillTrackr (logo)
+          <img src="./image.png" alt="Logo" />
         </Typography>
         <form onSubmit={handleSubmit} noValidate autoComplete="off">
           <TextField
@@ -60,6 +62,8 @@ function Register() {
             name="email"
             autoComplete="email"
             autoFocus
+            InputLabelProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
+            inputProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
             value={formData.email}
             onChange={handleChange}
           />
@@ -73,6 +77,8 @@ function Register() {
             type="password"
             id="password"
             autoComplete="current-password"
+            InputLabelProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
+            inputProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
             value={formData.password}
             onChange={handleChange}
           />
@@ -87,6 +93,8 @@ function Register() {
             id="confirmPassword"
             autoComplete="current-password"
             value={formData.confirmPassword}
+            InputLabelProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
+            inputProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
             onChange={handleChange}
           />
           <Button
@@ -94,12 +102,12 @@ function Register() {
             fullWidth
             variant="contained"
             color="primary"
-            sx={{ mt: 3, mb: 2 }}
+            sx={{ mt: 3, mb: 2 ,fontFamily: 'Archivo Black, sans-serif'}}
           >
             Créer un compte 
           </Button>
         </form>
-        <Typography variant="body2">
+        <Typography variant="body2" sx={{ mt: 3, mb: 2 ,fontFamily: 'Archivo Black, sans-serif'}}>
           Déjà un compte ? <a href="/connection">Clique ici</a>
         </Typography>
       </Box>
