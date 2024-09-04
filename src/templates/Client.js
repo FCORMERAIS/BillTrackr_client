@@ -31,7 +31,7 @@ function Client() {
     e.preventDefault();
     try {
       const decoded = jwtDecode(token);
-      const response = await axios.post('http://localhost:3001/add_client', {
+      const response = await axios.post('http://172.31.32.102:3001/add_client', {
         nomClient: formData.nomClient,
         userId : decoded.id
       });      

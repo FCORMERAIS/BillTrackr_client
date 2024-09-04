@@ -11,7 +11,7 @@ const FactureDetail = ({ facture, onDelete }) => {
     const fetchPdf = async () => {
       try {
         if (facture) {
-          const response = await axios.post('http://localhost:3001/get_pdf', { factureId: facture.id });
+          const response = await axios.post('http://172.31.32.102:3001/get_pdf', { factureId: facture.id });
           setPdfUrl(response.data.pdfUrl);
         }
       } catch (error) {
@@ -34,7 +34,7 @@ const FactureDetail = ({ facture, onDelete }) => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/delete_facture', { factureId: facture.id });
+      const response = await axios.post('http://172.31.32.102:3001/delete_facture', { factureId: facture.id });
       console.log('Facture supprimée:', response.data);
       window.location.reload();
     } catch (error) {
@@ -44,7 +44,7 @@ const FactureDetail = ({ facture, onDelete }) => {
 
   const handlePaymentValidation = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/paiement_valide', { factureId: facture.id });
+      const response = await axios.post('http://172.31.32.102:3001/paiement_valide', { factureId: facture.id });
       console.log('Paiement validé:', response.data);
       window.location.reload();
     } catch (error) {

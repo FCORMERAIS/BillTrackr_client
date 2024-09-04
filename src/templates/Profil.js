@@ -8,7 +8,7 @@ import "../css/Profil.css";
 // Importing the 'Archivo Black' font
 import '@fontsource/archivo-black'; // Make sure this is installed via npm or yarn
 
-function Profile() {
+function Profil() {
   const [prenom, setFirstName] = useState('');
   const [nom, setLastName] = useState('');
   const [adresse, setAddress] = useState('');
@@ -43,7 +43,7 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/change_profile', {
+      const response = await axios.post('http://172.31.32.102:3001/change_Profil', {
         prenom,
         nom,
         adresse,
@@ -72,7 +72,7 @@ function Profile() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box className="boxProfile"
+      <Box className="boxProfil"
         sx={{
           marginTop: 8,
           display: 'flex',
@@ -132,7 +132,7 @@ function Profile() {
               color="primary"
               sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}
             >
-              ENREGISTRER PROFIL
+              ENREGISTRER Profil
             </Button>
           </Box>
         ) : (
@@ -143,4 +143,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Profil;

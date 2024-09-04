@@ -58,7 +58,7 @@ function Facture() {
 
         try {
           const response = await axios.post(
-            'http://localhost:3001/upload',
+            'http://172.31.32.102:3001/upload',
             formDataFile,
             {
               headers: {
@@ -69,7 +69,7 @@ function Facture() {
           setnameFile(response.data.file.filename);
           const decoded = jwtDecode(token);
           console.log(formData);
-          const response2 = await axios.post('http://localhost:3001/add_facture', {
+          const response2 = await axios.post('http://172.31.32.102:3001/add_facture', {
             clientName: formData.clientName,
             dateEcheance: formData.dateEcheance,
             prixtotalTTC: formData.prixtotalTTC,
@@ -100,7 +100,7 @@ function Facture() {
   const fetchClients = async (userId) => {
     try {
       const response = await axios.post(
-        'http://localhost:3001/get_clients_from_user',
+        'http://172.31.32.102:3001/get_clients_from_user',
         {
           userId: userId,
         }
@@ -248,7 +248,7 @@ function Facture() {
           </Box>
           {fileUrl && (
             <Box mt={2} width="100%" textAlign="center">
-              <Typography variant="body1" sx={{ fontFamily: 'Archivo Black, sans-serif' }}>
+              <Typography variant="body1" sx={{ fontFamily: 'Archivo Black, sans-serif', color: '#000' }}>
                 Aperçu du fichier :
               </Typography>
               {selectedFile.type.startsWith('image/') ? (
@@ -258,7 +258,13 @@ function Facture() {
                   style={{ maxWidth: '100%' }}
                 />
               ) : (
-                <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+                <a
+                  className='color'
+                  href={fileUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#e4b211', textDecoration: 'none' }}
+                >
                   {selectedFile.name}
                 </a>
               )}

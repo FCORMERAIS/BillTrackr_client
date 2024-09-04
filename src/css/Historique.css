@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&display=swap');
+
+
 .historiqueText{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+* {
+    font-family: 'Archivo Black', sans-serif !important;
 }

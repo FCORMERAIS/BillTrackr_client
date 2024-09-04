@@ -18,7 +18,7 @@ const NavbarComponent = () => {
   const handlePostRequest = async () => {
     const decoded = jwtDecode(token);
     try {
-      const response = await axios.post('http://localhost:3001/refresh', {
+      const response = await axios.post('http://172.31.32.102:3001/refresh', {
         email: decoded.email,
       });
       console.log(response.data);
@@ -42,7 +42,7 @@ const NavbarComponent = () => {
   const deconnected = async () => {
     try {
       const decoded = jwtDecode(token);
-      const response = await axios.post('http://localhost:3001/deactivate_token', {
+      const response = await axios.post('http://172.31.32.102:3001/deactivate_token', {
         userId: decoded.id,
       });
       console.log(response.data);
@@ -82,7 +82,7 @@ const NavbarComponent = () => {
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="navbar-custom">
+    <Navbar expand="lg" className="navbar-custom">
       <Navbar.Brand href="/acceuil" className="navbar-logo" id="navbar-logo">
         BillTrackr
       </Navbar.Brand>
@@ -91,16 +91,15 @@ const NavbarComponent = () => {
         {isLoggedIn ? (
           <>
             <Nav className="mx-auto">
-              <Nav.Link href="/profile">Profile</Nav.Link>
-              <Nav.Link href="/ajouter">Ajouter</Nav.Link>
-              <Nav.Link href="/listeFactures">Liste des Factures</Nav.Link>
-              <Nav.Link href="/historique">Historique</Nav.Link>
+              <Nav.Link href="/Profil" className='link-color'>Profil</Nav.Link>
+              <Nav.Link href="/ajouter" className='link-color'>Ajouter</Nav.Link>
+              <Nav.Link href="/listeFactures" className='link-color'>Liste des Factures</Nav.Link>
+              <Nav.Link href="/historique" className='link-color'>Historique</Nav.Link>
             </Nav>
             <Button
               className="bouton_co"
               variant="contained"
               id="bouton_co"
-              color="secondary"
               onClick={deconnected}
               sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}
             >
@@ -113,10 +112,9 @@ const NavbarComponent = () => {
               className="bouton_co"
               id="bouton_co"
               variant="contained"
-              color="primary"
               onClick={handleLoginRedirect}
-              sx={{ mt: 2 }}
-            >
+              sx={{ mt: 2, whiteSpace: 'nowrap' }}
+              >
               SE CONNECTER
             </Button>
           </Nav>

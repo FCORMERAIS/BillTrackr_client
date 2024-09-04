@@ -24,7 +24,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/users', {
+      const response = await axios.post('http://172.31.32.102:3001/users', {
         email: formData.email,
         password: formData.password,
         confirmPassword: formData.confirmPassword
@@ -49,7 +49,7 @@ function Register() {
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center" mt={5} className="boxRegister">
         <Typography variant="h4" component="h1" gutterBottom>
-          <img src="./image.png" alt="Logo" />
+          <img className='logo' src="./image.png" alt="Logo" />
         </Typography>
         <form onSubmit={handleSubmit} noValidate autoComplete="off">
           <TextField

@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black:wght@400&display=swap');
+
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+    background-color : #e4b211 !important;
+}
+
+* {
+font-family: 'Archivo Black', sans-serif;
+}
+
+h1 ,h2,h3,h4,h5 ,p {
+    color : #000 !important;
+}

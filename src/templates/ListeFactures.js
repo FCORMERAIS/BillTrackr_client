@@ -25,7 +25,7 @@ const FactureDetail = () => {
         const userId = decoded.id;
 
         try {
-          const response = await axios.post('http://localhost:3001/get_clients_from_user', { userId });
+          const response = await axios.post('http://172.31.32.102:3001/get_clients_from_user', { userId });
           setClients(response.data);
         } catch (error) {
           console.error('Error fetching clients:', error);
@@ -42,7 +42,7 @@ const FactureDetail = () => {
 
       try {
         setLoading(true);
-        const response = await axios.post('http://localhost:3001/get_pdf', { factureId: selectedFacture.id });
+        const response = await axios.post('http://172.31.32.102:3001/get_pdf', { factureId: selectedFacture.id });
         setPdfUrl(response.data.pdfUrl);
       } catch (error) {
         console.error('Erreur lors de la récupération du PDF:', error);
@@ -62,7 +62,7 @@ const FactureDetail = () => {
       const token = localStorage.getItem('accessToken');
       const decoded = jwtDecode(token);
       const userId = decoded.id;
-      const response = await axios.post('http://localhost:3001/get_facture_by_client', { ClientId: clientId, UserId: userId });
+      const response = await axios.post('http://172.31.32.102:3001/get_facture_by_client', { ClientId: clientId, UserId: userId });
       setFactures(response.data);
       setOpenFactureDialog(true);
     } catch (error) {
@@ -77,7 +77,7 @@ const FactureDetail = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/delete_facture', { factureId: selectedFacture.id });
+      const response = await axios.post('http://172.31.32.102:3001/delete_facture', { factureId: selectedFacture.id });
       console.log('Facture supprimée:', response.data);
       window.location.reload();
     } catch (error) {
@@ -87,7 +87,7 @@ const FactureDetail = () => {
 
   const handlePaymentValidation = async () => {
     try {
-      const response = await axios.post('http://localhost:3001/paiement_valide', { factureId: selectedFacture.id });
+      const response = await axios.post('http://172.31.32.102:3001/paiement_valide', { factureId: selectedFacture.id });
       console.log('Paiement validé:', response.data);
       window.location.reload();
     } catch (error) {
@@ -179,8 +179,9 @@ const FactureDetail = () => {
                   ({selectedFacture.haveBeenPaid ? 'PAYÉ' : 'PAS PAYÉ'})
                 </Typography>
                 <Button
+                  className='test'
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   onClick={handleDelete}
                   sx={{ mt: 2, width: '100%', fontFamily: 'Archivo Black, sans-serif' }}
                 >

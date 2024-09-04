@@ -18,7 +18,7 @@ const FactureHistory = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         try {
-          const response = await axios.post('http://localhost:3001/get_facture_history', { userId });
+          const response = await axios.post('http://172.31.32.102:3001/get_facture_history', { userId });
           setFactures(response.data);
           console.log('Fetched clients:', response.data);
         } catch (error) {

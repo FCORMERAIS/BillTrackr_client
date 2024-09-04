@@ -24,7 +24,7 @@ function Login() {
     e.preventDefault();
     setError(''); // Réinitialise le message d'erreur avant de soumettre
     try {
-      const response = await axios.post('http://localhost:3001/login', {
+      const response = await axios.post('http://172.31.32.102:3001/login', {
         email: formData.email,
         password: formData.password,
       });
@@ -45,8 +45,8 @@ function Login() {
   return (
     <Container maxWidth="sm">
       <Box display="flex" flexDirection="column" alignItems="center" mt={5} className="boxLogin">
-        <Typography variant="h4" component="h1" gutterBottom>
-          <img src="./image.png" alt="Logo" />
+        <Typography  variant="h4" component="h1" gutterBottom>
+          <img className='logo' src="./image.png" alt="Logo" />
         </Typography>
         <form onSubmit={handleSubmit} noValidate autoComplete="off">
           <TextField
