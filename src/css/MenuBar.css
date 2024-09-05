@@ -21,6 +21,14 @@
   background-color : #000 !important;
 }
 
+.navbar-custom {
+  min-height : 8vh
+}
+
+.navbar-logo {
+  position : absolute !important;
+}
+
   .nav__logo {
   color: var(--first-color);
   transition: color 0.4s;
@@ -82,6 +90,24 @@
   width: 100%;
   height: auto;
 }
+#bouton_co {
+  margin-top : 0% !important;
+
+}
+.boutton {
+  display: flex;
+  white-space: nowrap;
+  justify-content: flex-end;
+  width: 100vw;
+}
+
+.mx-auto {
+  position:absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
 
 @media (max-width: 1000px) {
   .navbar-nav {
@@ -94,19 +120,24 @@
     margin: 0.5rem 0; 
   }
 
-  #bouton_co {
+  .boutton {
     position: static;
-    
+    display: flex;
+    white-space: nowrap;
+    justify-content: center !important;
+  }
+  #bouton_co {
+    margin-right:0% !important;
+
   }
   #navbar-logo {
-    position: static;
-    margin-left: 40%;
+    position: static !important;
   }
   .navbar-logo {
     margin-left : 0%;
   }
-  .bouton_co {
-    margin-right : 0%;
+  .mx-auto {
+    position:static !important;
   }
 }
 
@@ -116,10 +147,14 @@
 }
 
 #bouton_co {
-  margin-right : 3%;
+  margin-right : 4%;
   color : #fff !important;
 }
 
 .link-color {
   color : #fff !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }

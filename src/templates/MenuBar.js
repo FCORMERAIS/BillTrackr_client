@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar, Nav} from 'react-bootstrap';
 import {jwtDecode} from 'jwt-decode';
 import axios from 'axios';
-import { Button} from '@mui/material';
+import { Button, Box} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import "../css/MenuBar.css"
 import config from '../config.json';
@@ -97,6 +97,8 @@ const NavbarComponent = () => {
               <Nav.Link href="/listeFactures" className='link-color'>Liste des Factures</Nav.Link>
               <Nav.Link href="/historique" className='link-color'>Historique</Nav.Link>
             </Nav>
+            <Box className = "boutton">
+
             <Button
               className="bouton_co"
               variant="contained"
@@ -106,9 +108,11 @@ const NavbarComponent = () => {
             >
               SE DECONNECTER
             </Button>
+            </Box>
           </>
         ) : (
           <Nav className="mx-auto">
+            <Box className = "boutton">
             <Button
               className="bouton_co"
               id="bouton_co"
@@ -118,6 +122,7 @@ const NavbarComponent = () => {
               >
               SE CONNECTER
             </Button>
+            </Box>
           </Nav>
         )}
       </Navbar.Collapse>
