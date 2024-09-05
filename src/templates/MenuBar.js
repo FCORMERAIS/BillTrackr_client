@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Button} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import "../css/MenuBar.css"
+import config from '../config.json';
 
 const NavbarComponent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,7 +19,7 @@ const NavbarComponent = () => {
   const handlePostRequest = async () => {
     const decoded = jwtDecode(token);
     try {
-      const response = await axios.post('http://172.31.32.102:3001/refresh', {
+      const response = await axios.post(`http://${config.ipv4}:3001/refresh`, {
         email: decoded.email,
       });
       console.log(response.data);
@@ -42,7 +43,7 @@ const NavbarComponent = () => {
   const deconnected = async () => {
     try {
       const decoded = jwtDecode(token);
-      const response = await axios.post('http://172.31.32.102:3001/deactivate_token', {
+      const response = await axios.post(`http://${config.ipv4}:3001/deactivate_token`, {
         userId: decoded.id,
       });
       console.log(response.data);

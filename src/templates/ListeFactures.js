@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Typography, Button, Grid, Dialog, List, ListItem, ListItemText, CircularProgress } from '@mui/material';
-import { Close } from '@mui/icons-material'; // Import de l'icône Close
+import { AiOutlineClose } from 'react-icons/ai'; // Utilisation de react-icons
 import axios from 'axios';
 import PDFViewer from './PDFViewer';
-import { jwtDecode } from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode'; // Assurez-vous que jwt-decode est correctement importé
 import '@fontsource/archivo-black';
 import "../css/ListeFacture.css";
+import config from '../config.json';
+
 
 const FactureDetail = () => {
   const [clients, setClients] = useState([]);
@@ -25,7 +27,7 @@ const FactureDetail = () => {
         const userId = decoded.id;
 
         try {
-          const response = await axios.post('http://172.31.32.102:3001/get_clients_from_user', { userId });
+          const response = await axios.post(`http://${config.ipv4}:3001/get_clients_from_user`, { userId });
           setClients(response.data);
         } catch (error) {
           console.error('Error fetching clients:', error);
@@ -42,7 +44,7 @@ const FactureDetail = () => {
 
       try {
         setLoading(true);
-        const response = await axios.post('http://172.31.32.102:3001/get_pdf', { factureId: selectedFacture.id });
+        const response = await axios.post(`http://${config.ipv4}:3001/get_pdf`, { factureId: selectedFacture.id });
         setPdfUrl(response.data.pdfUrl);
       } catch (error) {
         console.error('Erreur lors de la récupération du PDF:', error);
@@ -62,7 +64,7 @@ const FactureDetail = () => {
       const token = localStorage.getItem('accessToken');
       const decoded = jwtDecode(token);
       const userId = decoded.id;
-      const response = await axios.post('http://172.31.32.102:3001/get_facture_by_client', { ClientId: clientId, UserId: userId });
+      const response = await axios.post(`http://${config.ipv4}:3001/get_facture_by_client`, { ClientId: clientId, UserId: userId });
       setFactures(response.data);
       setOpenFactureDialog(true);
     } catch (error) {
@@ -77,7 +79,7 @@ const FactureDetail = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.post('http://172.31.32.102:3001/delete_facture', { factureId: selectedFacture.id });
+      const response = await axios.post(`http://${config.ipv4}:3001/delete_facture`, { factureId: selectedFacture.id });
       console.log('Facture supprimée:', response.data);
       window.location.reload();
     } catch (error) {
@@ -87,7 +89,7 @@ const FactureDetail = () => {
 
   const handlePaymentValidation = async () => {
     try {
-      const response = await axios.post('http://172.31.32.102:3001/paiement_valide', { factureId: selectedFacture.id });
+      const response = await axios.post(`http://${config.ipv4}:3001/paiement_valide`, { factureId: selectedFacture.id });
       console.log('Paiement validé:', response.data);
       window.location.reload();
     } catch (error) {
@@ -139,15 +141,18 @@ const FactureDetail = () => {
         </>
       ) : (
         <Box sx={{ overflow: 'auto', maxHeight: '100vh' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }} className = "titleBox">
+          <Box sx={{ display: 'flex', alignItems: 'center' }} className="titleBox">
             <Typography variant="h4" align="center" sx={{ mb: 2, fontFamily: 'Archivo Black, sans-serif' }}>
               {selectedFacture.nom} - Facture {selectedFacture.id}
             </Typography>
           </Box>
-          <Box className = "closeBox">
-          <Close
-              onClick={() => setSelectedFacture(null)}
-              sx={{ cursor: 'pointer', color: '#f00' }}
+          <Box className="closeBox" style={{ position: 'relative', zIndex: 10 }}>
+          <AiOutlineClose
+            onClick={() => {
+              console.log('Close button clicked');
+              setSelectedFacture(null);
+            }}
+            style={{ cursor: 'pointer', color: '#f00' }}
           />
           </Box>
           <Grid container spacing={2}>

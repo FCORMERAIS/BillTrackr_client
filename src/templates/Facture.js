@@ -58,7 +58,7 @@ function Facture() {
 
         try {
           const response = await axios.post(
-            'http://172.31.32.102:3001/upload',
+            `http://${config.ipv4}:3001/upload`,
             formDataFile,
             {
               headers: {
@@ -69,7 +69,7 @@ function Facture() {
           setnameFile(response.data.file.filename);
           const decoded = jwtDecode(token);
           console.log(formData);
-          const response2 = await axios.post('http://172.31.32.102:3001/add_facture', {
+          const response2 = await axios.post(`http://${config.ipv4}:3001/add_facture`, {
             clientName: formData.clientName,
             dateEcheance: formData.dateEcheance,
             prixtotalTTC: formData.prixtotalTTC,
@@ -100,7 +100,7 @@ function Facture() {
   const fetchClients = async (userId) => {
     try {
       const response = await axios.post(
-        'http://172.31.32.102:3001/get_clients_from_user',
+        `http://${config.ipv4}:3001/get_clients_from_user`,
         {
           userId: userId,
         }

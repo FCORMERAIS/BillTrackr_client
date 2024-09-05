@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { jwtDecode } from 'jwt-decode'; // Corrigé l'import de jwtDecode
+import { jwtDecode } from 'jwt-decode'; 
 import { Button, TextField, Container, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../css/Profil.css";
+import config from '../config.json';
 
-// Importing the 'Archivo Black' font
-import '@fontsource/archivo-black'; // Make sure this is installed via npm or yarn
+import '@fontsource/archivo-black';
 
 function Profil() {
   const [prenom, setFirstName] = useState('');
@@ -43,7 +43,7 @@ function Profil() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://172.31.32.102:3001/change_Profil', {
+      const response = await axios.post(`http://${config.ipv4}:3001/change_Profil`, {
         prenom,
         nom,
         adresse,

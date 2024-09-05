@@ -5,6 +5,7 @@ import {jwtDecode} from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';
 import Carousel from './Carousel'
 import "../css/home.css"
+import config from '../config.json';
 
 const Home = () => {
   const getTokenFromLocalStorage = () => {
@@ -22,7 +23,7 @@ const Home = () => {
   const handlePostRequest = async () => {
     const decoded = jwtDecode(token);
     try {
-      const response = await axios.post('http://172.31.32.102:3001/refresh', {
+      const response = await axios.post(`http://${config.ipv4}:3001/refresh`, {
         email: decoded.email,
       });
       console.log(response.data);
@@ -46,7 +47,7 @@ const Home = () => {
   const deconnected = async () => {
     try {
       const decoded = jwtDecode(token);
-      const response = await axios.post('http://172.31.32.102:3001/deactivate_token', {
+      const response = await axios.post(`http://${config.ipv4}:3001/deactivate_token`, {
         userId: decoded.id,
       });
       console.log(response.data);

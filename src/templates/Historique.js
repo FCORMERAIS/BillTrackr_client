@@ -4,6 +4,7 @@ import axios from 'axios';
 import {jwtDecode} from 'jwt-decode';
 import "../css/Historique.css"
 import '@fontsource/archivo-black';
+import config from '../config.json';
 
 
 const FactureHistory = () => {
@@ -18,7 +19,7 @@ const FactureHistory = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         try {
-          const response = await axios.post('http://172.31.32.102:3001/get_facture_history', { userId });
+          const response = await axios.post(`://${config.ipv4}:3001/get_facture_history`, { userId });
           setFactures(response.data);
           console.log('Fetched clients:', response.data);
         } catch (error) {

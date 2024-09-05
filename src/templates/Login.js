@@ -3,6 +3,7 @@ import { Container, TextField, Button, Typography, Box, Alert } from '@mui/mater
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "../css/login.css"
+import config from '../config.json';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -22,9 +23,9 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Réinitialise le message d'erreur avant de soumettre
+    setError('');
     try {
-      const response = await axios.post('http://172.31.32.102:3001/login', {
+      const response = await axios.post(`http://${config.ipv4}:3001/login`, {
         email: formData.email,
         password: formData.password,
       });

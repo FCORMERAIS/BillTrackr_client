@@ -73,5 +73,5 @@ npm run dev
 
 ## Utilisation
 
-Une fois que le client et le serveur sont en cours d'exécution, vous pouvez accéder à l'application BillTrackr en naviguant à http://172.31.32.102:3000 dans votre navigateur web.
+Une fois que le client et le serveur sont en cours d'exécution, vous pouvez accéder à l'application BillTrackr en naviguant à http://{config.ipv4}:3000 dans votre navigateur web.
 

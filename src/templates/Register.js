@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 import '@fontsource/archivo-black';
 import "../css/register.css"
+import config from '../config.json';
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://172.31.32.102:3001/users', {
+      const response = await axios.post(`http://${config.ipv4}:3001/users`, {
         email: formData.email,
         password: formData.password,
         confirmPassword: formData.confirmPassword
