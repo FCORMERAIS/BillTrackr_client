@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Container, TextField, Button, Typography, Box } from '@mui/material';
+import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Importer useNavigate
 import '@fontsource/archivo-black';
-import "../css/register.css"
+import "../css/register.css";
 import config from '../config.json';
 
 function Register() {
@@ -12,6 +12,7 @@ function Register() {
     password: '',
     confirmPassword: ''
   });
+  const [error, setError] = useState(''); // État pour stocker le message d'erreur
   const navigate = useNavigate(); // Utiliser useNavigate pour la redirection
 
   const handleChange = (e) => {
@@ -22,8 +23,28 @@ function Register() {
     });
   };
 
+  // Fonction pour vérifier si le mot de passe respecte les critères
+  const isPasswordValid = (password) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Réinitialiser l'erreur à chaque tentative
+
+    // Vérification des mots de passe
+    if (formData.password !== formData.confirmPassword) {
+      setError('Les mots de passe ne correspondent pas.');
+      return;
+    }
+
+    // Vérification si le mot de passe respecte les critères
+    if (!isPasswordValid(formData.password)) {
+      setError('Le mot de passe doit contenir au moins 12 caractères, avec au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial.');
+      return;
+    }
+
     try {
       const response = await axios.post(`http://${config.ipv4}:3001/users`, {
         email: formData.email,
@@ -31,17 +52,14 @@ function Register() {
         confirmPassword: formData.confirmPassword
       });
       console.log(response.data);
-      navigate('/connection'); 
+      navigate('/connection'); // Redirection vers la page de connexion
     } catch (error) {
       if (error.response) {
-        console.error(error.response.data);
-        // Gérez les erreurs spécifiques à la réponse
+        setError('Une erreur est survenue lors de la création du compte.');
       } else if (error.request) {
-        console.error('No response received:', error.request);
-        // Gérez les erreurs où aucune réponse n'a été reçue
+        setError('Aucune réponse du serveur. Veuillez réessayer plus tard.');
       } else {
-        console.error('Error', error.message);
-        // Gérez d'autres erreurs (erreurs de configuration, etc.)
+        setError('Une erreur est survenue. Veuillez réessayer.');
       }
     }
   };
@@ -98,17 +116,22 @@ function Register() {
             inputProps={{ style: { fontFamily: 'Archivo Black, sans-serif' } }}
             onChange={handleChange}
           />
+          {error && (
+            <Alert severity="error" sx={{ mt: 2, fontFamily: 'Archivo Black, sans-serif' }}>
+              {error}
+            </Alert>
+          )}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            sx={{ mt: 3, mb: 2 ,fontFamily: 'Archivo Black, sans-serif'}}
+            sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}
           >
-            Créer un compte 
+            Créer un compte
           </Button>
         </form>
-        <Typography variant="body2" sx={{ mt: 3, mb: 2 ,fontFamily: 'Archivo Black, sans-serif'}}>
+        <Typography variant="body2" sx={{ mt: 3, mb: 2, fontFamily: 'Archivo Black, sans-serif' }}>
           Déjà un compte ? <a href="/connection">Clique ici</a>
         </Typography>
       </Box>

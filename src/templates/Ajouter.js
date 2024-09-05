@@ -20,7 +20,7 @@ const Ajouter = () => {
 
   return (
     <Box>
-       <Box sx={{ display: 'flex', justifyContent: 'center', borderBottom: '1px solid #ccc', mb: 2 }}>
+       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
         <Typography
           variant="h6"
           onClick={() => setCurrentPage('facture')}

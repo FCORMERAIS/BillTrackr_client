@@ -19,12 +19,12 @@ const FactureHistory = () => {
         const decoded = jwtDecode(token);
         const userId = decoded.id;
         try {
-          const response = await axios.post(`://${config.ipv4}:3001/get_facture_history`, { userId });
+          const response = await axios.post(`http://${config.ipv4}:3001/get_facture_history`, { userId });
           setFactures(response.data);
           console.log('Fetched clients:', response.data);
         } catch (error) {
           console.error('Error fetching clients:', error);
-          setError(error.message || 'An error occurred'); // Extract a meaningful message
+          setError(error.message || 'An error occurred'); 
         } finally {
           setLoading(false);
         }

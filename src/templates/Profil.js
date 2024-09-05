@@ -43,7 +43,7 @@ function Profil() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://${config.ipv4}:3001/change_Profil`, {
+      const response = await axios.post(`http://${config.ipv4}:3001/change_profil`, {
         prenom,
         nom,
         adresse,
