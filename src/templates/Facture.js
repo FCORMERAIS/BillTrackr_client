@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import {Container, TextField, Button, Typography, Box, FormControl, InputLabel, MenuItem, Select} from '@mui/material';
+import {Container, TextField, Button, Typography, Box, FormControl, InputLabel, MenuItem, Select, Alert} from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-import "../css/Facture.css"
+import {jwtDecode} from 'jwt-decode'; // Corriger l'import de jwtDecode
+import "../css/Facture.css";
 import '@fontsource/archivo-black';
+import config from '../config.json';
 
 function Facture() {
   const getTokenFromLocalStorage = () => {
@@ -13,7 +14,18 @@ function Facture() {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileUrl, setFileUrl] = useState('');
-  const [nameFile, setnameFile] = useState('');
+  const [nameFile, setNameFile] = useState('');
+  const [error, setError] = useState(''); // État pour stocker le message d'erreur
+  const [formData, setFormData] = useState({
+    clientName: '',
+    dateEcheance: '',
+    prixtotalTTC: '',
+    remise: '',
+    nom: '',
+  });
+  const [clients, setClients] = useState([]);
+  const [client, setClient] = useState('');
+  const navigate = useNavigate();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -23,17 +35,6 @@ function Facture() {
       handleChange({ target: { name: 'nom', value: file.name } });
     }
   };
-
-  const [formData, setFormData] = useState({
-    clientName: '',
-    dateEcheance: '',
-    prixtotalTTC: '',
-    remise: '',
-    nom: '',
-  });
-
-  const [clients, setClients] = useState([]);
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,31 +46,34 @@ function Facture() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Réinitialiser l'erreur avant chaque soumission
+
+    if (!selectedFile) {
+      setError('Aucun fichier sélectionné.');
+      return;
+    }
+
+    if (!formData.clientName || !formData.dateEcheance || !formData.prixtotalTTC || !formData.remise || !formData.nom) {
+      setError('Veuillez remplir tous les champs obligatoires.');
+      return;
+    }
+
     try {
       const token = getTokenFromLocalStorage();
       if (token) {
-        if (!selectedFile) {
-          alert('Aucun fichier sélectionné');
-          return;
-        }
-
         const formDataFile = new FormData();
         formDataFile.append('file', selectedFile);
 
         try {
-          const response = await axios.post(
-            `http://${config.ipv4}:3001/upload`,
-            formDataFile,
-            {
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              },
-            }
-          );
-          setnameFile(response.data.file.filename);
+          const response = await axios.post(`http://${config.ipv4}:3001/upload`, formDataFile, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          setNameFile(response.data.file.filename);
           const decoded = jwtDecode(token);
-          console.log(formData);
-          const response2 = await axios.post(`http://${config.ipv4}:3001/add_facture`, {
+
+          await axios.post(`http://${config.ipv4}:3001/add_facture`, {
             clientName: formData.clientName,
             dateEcheance: formData.dateEcheance,
             prixtotalTTC: formData.prixtotalTTC,
@@ -80,19 +84,18 @@ function Facture() {
           });
           navigate('/acceuil');
         } catch (error) {
-          console.error('Erreur lors du téléchargement du fichier', error);
-          alert('Erreur lors du téléchargement du fichier');
+          setError('Erreur lors du téléchargement du fichier.');
         }
       } else {
-        console.log('ERREUR PAS CONECTÉ');
+        setError('Utilisateur non connecté.');
       }
     } catch (error) {
       if (error.response) {
-        console.error(error.response.data);
+        setError('Erreur lors de la création de la facture.');
       } else if (error.request) {
-        console.error('No response received:', error.request);
+        setError('Aucune réponse du serveur. Veuillez réessayer plus tard.');
       } else {
-        console.error('Error', error.message);
+        setError('Une erreur est survenue. Veuillez réessayer.');
       }
     }
   };
@@ -107,7 +110,7 @@ function Facture() {
       );
       setClients(response.data);
     } catch (error) {
-      console.error('Failed to fetch clients:', error);
+      setError('Impossible de récupérer les clients.');
     }
   };
 
@@ -118,8 +121,6 @@ function Facture() {
       fetchClients(decoded.id);
     }
   }, []);
-
-  const [client, setClient] = useState('');
 
   const ClientSelect = ({ clients, handleChange }) => {
     const handleSelectChange = (event) => {
@@ -269,6 +270,11 @@ function Facture() {
                 </a>
               )}
             </Box>
+          )}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2, fontFamily: 'Archivo Black, sans-serif' }}>
+              {error}
+            </Alert>
           )}
           <Button
             type="submit"
