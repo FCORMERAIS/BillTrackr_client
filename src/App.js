@@ -10,6 +10,7 @@ import Ajouter from './templates/Ajouter'
 import FactureHistory from './templates/Historique'
 import MenuBar from './templates/MenuBar'
 import PageError from './templates/404Page'
+import Footer from "./templates/Footer"
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/historique" element={<FactureHistory />} />
         </Routes>
       </main>
+      <Footer />
     </Router>
   )
 }

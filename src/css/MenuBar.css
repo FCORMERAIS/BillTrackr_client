@@ -27,6 +27,7 @@
 
 .navbar-logo {
   position : absolute !important;
+  z-index : 100;
 }
 
   .nav__logo {
@@ -92,6 +93,7 @@
 }
 #bouton_co {
   margin-top : 0% !important;
+  margin-bottom :0% !important;
 
 }
 .boutton {
